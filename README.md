@@ -6,6 +6,10 @@ This is my learning note of MIT 6.034 Artificial Intelligence, Fall 2010
 
 Patrick Winston, Ford Professor of Artificial Intelligence and Computer Science. (Photograph by Azeddine Tahiri. Used with permission.)
 
+| Week/Topic | Recitation handouts | Problems & Solutions; extra notes | 
+| - | :-: | -: | 
+| 9/15 Rules & representations | [Rules notes](lectureNotes/rules-notes11.pdf) |  | 
+| 9/22 Search & optimal search | [Search notes;](lectureNotes/search-notes-f11.pdf) [Absolver paper;](lectureNotes/absolver.pdf) [A* paper](lectureNotes/EightPuzzle.pdf) |  | 
 
 # Demonstrations
 Much of the material in 6.034 is reinforced by on-line artificial-intelligence demonstrations developed by us or otherwise available on the web. Those demonstrations developed by us are provided via the easy-to-use Java Web Start mechanism, which comes with the Java Runtime Environment, the so-called JRE.
