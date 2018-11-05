@@ -6,6 +6,8 @@ This is my learning note of MIT 6.034 Artificial Intelligence, Fall 2010
 
 Patrick Winston, Ford Professor of Artificial Intelligence and Computer Science. (Photograph by Azeddine Tahiri. Used with permission.)
 
+# Recitation handouts & review questions; additional study slides
+
 | Week/Topic | Recitation handouts | Problems & Solutions; extra notes | 
 | - | :-: | -: | 
 | 9/15 Rules & representations | [Rules notes](lectureNotes/rules-notes11.pdf) |  | 

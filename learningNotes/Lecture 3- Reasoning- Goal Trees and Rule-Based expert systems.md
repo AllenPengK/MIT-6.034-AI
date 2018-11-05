@@ -51,4 +51,15 @@
 * 斑点
 * .... 等等
 
-同时顺便解释了什么是 `Forward-chain` 和 `Backward-chain`
+## Forward-chain 和 Backward-chain
+Forward-chain:
+
+> You can think of the forward chaining process as that of filtering a (finite) set of rules to find the one that is
+applicable, then firing the rule, i.e., carrying out that rule's consequent, to change the state of the world. The state of
+the world is represented as a set of database assertions (DB), which are statements about what is true in the world.
+You might want to think about how ‘deeply’ the rules actually encode the state of knowledge about a particular
+situation, for example, the grocery bagging rules. 
+
+Backward-chain:
+> For this class we will always assume that our backward chainers are trying to prove the truth of a conclusion, also
+called a goal or hypothesis. In the process, they construct a so-called AND-OR goal-tree.

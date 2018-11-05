@@ -60,7 +60,8 @@ Once we have a good representation, we can try and find an acceptable solution.
 > Take two concepts and combine them to make a third concepts without disturbing the original 2 concepts.
 
 </br>
-##### Language has two functions:
+
+#### Language has two functions:
 
 1. To up. It enables us to make descriptions, enables us to tell stories. And story telling and story understanding is what all education is about.
 2. To down. It enables us to marshal the resources of our perceptual systems and even command our perceptual system to image thing we've never seen.
