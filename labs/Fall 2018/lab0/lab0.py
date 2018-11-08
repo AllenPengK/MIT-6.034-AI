@@ -35,16 +35,12 @@ ANSWER_2 = "D"
 
 def is_even(x):
     """If x is even, returns True; otherwise returns False"""
-    if isinstance(x, int) and x % 2 == 0:
-        return True;
-    return False;
+    return True if isinstance(x, int) and x % 2 == 0 else False;
 
 def decrement(x):
     """Given a number x, returns x - 1 unless that would be less than
     zero, in which case returns 0."""
-    if x <= 0:
-        return 0
-    return x - 1;
+    return 0 if x<= 0 else x - 1;
 
 def cube(x):
     """Given a number x, returns its cube (x^3)"""
