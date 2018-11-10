@@ -10,24 +10,24 @@ pprint = pp.pprint
 
 #### Part 1: Multiple Choice #########################################
 
-ANSWER_1 = ''
+ANSWER_1 = '2'
 
-ANSWER_2 = ''
+ANSWER_2 = '4'
 
-ANSWER_3 = ''
+ANSWER_3 = '2'
 
-ANSWER_4 = ''
+ANSWER_4 = '0'
 
-ANSWER_5 = ''
+ANSWER_5 = '3'
 
-ANSWER_6 = ''
+ANSWER_6 = '1'
 
-ANSWER_7 = ''
+ANSWER_7 = '0'
 
 #### Part 2: Transitive Rule #########################################
 
-# Fill this in with your rule 
-transitive_rule = IF( AND( ), THEN( ) )
+# Fill this in with your rule
+transitive_rule = IF( AND("(?x) beats (?y)", "(?y) beats (?z)"), THEN("(?x) beats (?z)") )
 
 # You can test your rule by uncommenting these pretty print statements
 #  and observing the results printed to your screen after executing lab1.py
@@ -39,20 +39,35 @@ transitive_rule = IF( AND( ), THEN( ) )
 #### Part 3: Family Relations #########################################
 
 # Define your rules here. We've given you an example rule whose lead you can follow:
-friend_rule = IF( AND("person (?x)", "person (?y)"), THEN ("friend (?x) (?y)", "friend (?y) (?x)") )
+self_rule = IF('person (?x)', THEN('self (?x) (?x)') );
+friend_rule = IF( AND("person (?x)", "person (?y)", NOT("self (?x) ?(y)")), THEN ("friend (?x) (?y)", "friend (?y) (?x)") )
+sibling_rule = IF( AND('parent (?z) (?x)','parent (?z) (?y)', NOT('self (?x) (?y)')), THEN('sibling (?x) (?y)'));
+sibling_rule_two = IF('sibling (?x) (?y)', THEN('sibling (?y) (?x)'))
 
+child_rule = IF('parent (?x) (?y)', THEN('child (?y) (?x)'));
+grandchild_rule = IF(AND('child (?x) (?y)', 'child (?y) (?p)', NOT('self (?x) ?(y)')), THEN('grandchild (?x) (?p)'));
 
+cousin_rule = IF( AND('sibling (?a) (?b)',
+                      'parent (?a) (?x)',
+                      'parent (?b) (?y)',
+                      NOT('self (?x) (?y)'),
+                      NOT('sibling (?x) (?y)')),
+                  THEN('cousin (?x) (?y)'));
+cousin_rule_two = IF('cousin (?x) (?y)', THEN('cousin (?y) (?x)'));
+
+grandparent_rule = IF( AND('parent (?z) (?x)','parent (?x) (?y)'), THEN('grandparent (?z) (?y)', 'grandchild (?y) (?z)'));
 
 
 # Add your rules to this list:
-family_rules = [ friend_rule ]
+family_rules = [ friend_rule, self_rule, sibling_rule,
+                 sibling_rule_two, child_rule, grandchild_rule,
+                 cousin_rule, cousin_rule_two, grandparent_rule];
 
 # Uncomment this to test your data on the Simpsons family:
-# pprint(forward_chain(family_rules, simpsons_data, verbose=False))
-
+#pprint(forward_chain(family_rules, simpsons_data, verbose=False))
 # These smaller datasets might be helpful for debugging:
-# pprint(forward_chain(family_rules, sibling_test_data, verbose=True))
-# pprint(forward_chain(family_rules, grandparent_test_data, verbose=True))
+#pprint(forward_chain(family_rules, sibling_test_data, verbose=True))
+#pprint(forward_chain(family_rules, grandparent_test_data, verbose=True))
 
 # The following should generate 14 cousin relationships, representing 7 pairs
 # of people who are cousins:
@@ -83,7 +98,39 @@ def backchain_to_goal_tree(rules, hypothesis):
     (possibly with unbound variables), *not* AND or OR objects.
     Make sure to use simplify(...) to flatten trees where appropriate.
     """
-    raise NotImplementedError
+    print('---->', rules, '---->', hypothesis, len(rules));
+    if len(rules) == 0:
+        return hypothesis;
+
+    tree = OR();
+
+    for rule in rules:
+        rule_consequent = rule.consequent();
+        # Rule consequents always have just a single statement.
+        rule_match = match(rule_consequent, hypothesis);
+        # if rule_match, stupid mistake which has already been claimed in the website and said that 'match("foo", "foo") => {}' would be false
+        if rule_match is not None:
+            rule_antecedent = rule.antecedent();
+            if isinstance(rule_antecedent, list):
+                sub_tree = AND();
+                if isinstance(rule_antecedent, OR):
+                    sub_tree = OR();
+
+                for sub in rule_antecedent:
+                    new_tree = backchain_to_goal_tree(rules, populate(sub, rule_match));
+                    sub_tree.append(new_tree);
+
+                tree.append(sub_tree);
+
+            else:
+                new_tree = backchain_to_goal_tree(rules, populate(rule_antecedent, rule_match));
+                tree.append(AND(new_tree));
+
+        else:
+            tree.append(hypothesis);
+
+    result = simplify(tree);
+    return result;
 
 
 # Uncomment this to test out your backward chainer:
@@ -92,12 +139,12 @@ def backchain_to_goal_tree(rules, hypothesis):
 
 #### Survey #########################################
 
-NAME = None
-COLLABORATORS = None
-HOW_MANY_HOURS_THIS_LAB_TOOK = None
-WHAT_I_FOUND_INTERESTING = None
+NAME = 'yeyimilk'
+COLLABORATORS = ''
+HOW_MANY_HOURS_THIS_LAB_TOOK = '4h'
+WHAT_I_FOUND_INTERESTING = 'backward chainer, also interested in how to implement OR AND IF THEN '
 WHAT_I_FOUND_BORING = None
-SUGGESTIONS = None
+SUGGESTIONS = ''
 
 
 ###########################################################
